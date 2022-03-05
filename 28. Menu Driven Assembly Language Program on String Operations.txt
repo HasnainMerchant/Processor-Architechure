@@ -1,0 +1,79 @@
+;Program 28:Menu driven assembly language program on String operations
+dosseg
+.model small
+.stack 100h
+.data
+var1 db 100 dup(0)
+var2 db 100 dup(0)
+msg1 db 10,13,"1.String Length $"
+msg2 db 10,13,"2.String Reverse $"
+msg3 db 10,13,"3.Replace Character $"
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov si,offset var1
+L1:mov ah,01h
+int 21h
+cmp al,13
+je disp
+mov [si],al
+inc si
+inc cl
+jmp L1
+disp:lea dx,msg1
+mov ah,09h
+int 21h
+
+lea dx,msg2
+mov ah,09h
+int 21h
+
+lea dx,msg3
+mov ah,09h
+int 21h
+
+mov ah,01h
+int 21h
+mov bl,al
+cmp bl,"1"
+jne case1
+cmp bl,"2"
+jne case2
+cmp bl,"3"
+jne case3
+
+case1:mov dl,cl
+mov ah,02h
+int 21h
+jmp exit
+
+case2:lea si,var1
+lea di,var2
+dec si
+mov al,[si]
+mov [di],al
+inc di
+loop case2
+mov al,'$'
+mov [di],al
+display:mov dl,[di]
+mov ah,02h
+int 21h
+inc di
+loop display
+jmp exit
+
+case3: lea si,var1
+mov ah,01h
+int 21h
+back:cmp al,[si]
+jz skip
+inc si
+loop back
+
+skip:mov ah,"z"
+mov [si],ah
+
+exit:int ah,4ch
+int 21h

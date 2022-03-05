@@ -1,0 +1,54 @@
+;Program 16:Program to pack the two unpacked BCD at Runtime
+.model small
+.data
+msg1 db 10,13 ,"Enter First Number : $"
+msg2 db 10,13 ,"Enter Second Number : $"
+msg3 db 10,13 ,"The Packed BCD Number Is : $"
+.code
+main proc
+ mov ax,@data
+ mov ds,ax
+
+ lea dx,msg1
+ mov ah,09h
+ int 21h
+
+ mov ah,01h
+ int 21h
+ sub al,30h
+ mov bl,al
+ rol bl,4
+
+ lea dx,msg2
+ mov ah,09h
+ int 21h
+
+ mov ah,01h
+ int 21h
+ sub al,30h
+ mov cl,al
+ add bl,cl
+ mov al,bl
+
+ lea dx,msg3
+ mov ah,09h
+ int 21h
+ 
+ mov ch,02h 
+ mov cl,04h
+ mov bh,al 
+l2: rol bh,cl 
+ mov dl,bh 
+ and dl,0fH 
+ cmp dl,09 
+ jbe l4
+ add dl,07 
+l4: add dl,30H
+ mov ah,02 
+ int 21H
+ dec ch 
+ jnz l2
+ mov ah,4cH
+ int 21H
+main endp
+end main

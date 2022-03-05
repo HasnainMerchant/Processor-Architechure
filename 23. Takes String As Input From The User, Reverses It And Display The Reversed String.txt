@@ -1,0 +1,46 @@
+;Program 23:Program that takes string as input from the user, reverses it and display the reversed string
+dossg
+.model small
+.stack 100h
+.data
+msg1 db 10,13,"Enter The String : $"
+msg2 db 10,13,"Reversed String Is : $"
+str1 db 40 dup(0)
+len equ($-str1)
+str2 db 40 dup(0)
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov es,ax
+lea si,str1
+lea di,str2
+accept:mov ah,01h
+int 21h
+cmp al,0dh
+je end
+mov [si],al
+inc si
+jmp accept
+
+end:mov al,'$'
+mov [si],al
+mov cx,len
+
+reverse:dec si
+mov al,[si]
+mov [di],al
+inc di
+loop reverse
+mov al,'$'
+mov [di],al
+display:mov dl,[di]
+mov ah,02h
+int 21h
+inc di
+loop display
+mov ah,4ch
+int 21h
+
+main endp 
+end main 

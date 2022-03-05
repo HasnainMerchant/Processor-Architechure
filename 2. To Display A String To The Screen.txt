@@ -1,0 +1,17 @@
+;Program 2:Program to display a string to the screen
+dosseg
+.model small
+.stack 100h
+.data
+a db "This Is A String $"
+.code
+main proc
+mov ax,@data
+mov ds,ax
+lea dx,a
+mov ah,09h
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main

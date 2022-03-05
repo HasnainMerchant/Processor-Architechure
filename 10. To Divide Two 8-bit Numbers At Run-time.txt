@@ -1,0 +1,77 @@
+;Program 10:Program to Divide two 8-bit numbers at Run-time
+.model small
+.stack 100h
+.data
+   msg1 db 10,13,"Enter Divident = $"
+   msg2 db 10,13,"Enter Divisor = $"
+   msg3 db 10,13,"Remainder Is = $"
+   msg4 db 10,13,"Quotient Is = $"
+.code
+        main proc
+                mov ax,@data
+                mov ds,ax
+
+                lea dx,msg2
+                mov ah,09h
+                int 21h
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                mov bl,al
+                rol bl,4
+                mov ah,01h
+                int 21h
+                sub al,30h
+                add bl,al
+
+                lea dx,msg1
+                mov ah,09h
+                int 21h
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                mov cl,al
+                rol cl,4
+                mov ah,01h
+                int 21h
+                sub al,30h
+                add cl,al
+                mov al,cl
+                mov ah,00h
+
+                div bl
+                daa
+                mov bx,ax
+
+                lea dx,msg3
+                mov ah,09h
+                int 21h
+
+                mov dl,bh
+                cmp dl,09h
+                jbe L1
+                add dl,07h
+                L1:add dl,30h
+                mov ah,02h
+                int 21h
+
+                lea dx,msg4
+                mov ah,09h
+                int 21h
+
+                mov dl,bl
+                cmp dl,09h
+                jbe L2
+                add dl,07h
+                L2:add dl,30h
+                mov ah,02h
+                int 21h
+
+
+                mov ah,4ch
+                int 21h
+
+main endp
+end main

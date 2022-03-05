@@ -1,0 +1,27 @@
+;Program 24:Program to Reverse a string using stack
+dosseg
+.model small
+.stack 100h
+.data
+str1 db 'String'
+len equ($-str1)
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov es,ax
+mov si,offset str1
+mov cx,len
+pushing:PUSH [si]
+inc si
+loop pushing
+mov cx,len
+popping:POP[si]
+mov ah,02h
+int 21h
+dec si
+loop popping
+mov ah,4ch
+int 21h
+main endp
+end main

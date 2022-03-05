@@ -1,0 +1,44 @@
+;Program 12:Program to Subtract two 16-bit numbers(hardcoded)
+dosseg
+.model small
+.stack 100h
+.data
+   a dw 4738h
+   b dw 3629h
+.code
+        main proc
+                mov ax,@data
+                mov ds,ax
+
+                mov ax,a
+                mov bx,b
+
+                sub al,bl
+                das
+                mov bl,al
+
+                sbb ah,bh
+                mov al,ah
+                das
+                mov bh,al
+
+                mov ch,04h
+                mov cl,04h
+
+            L1: rol bx,cl
+                mov dl,bl
+                and dl,0fh
+                cmp dl,09h
+                jbe L2
+                add dl,07h
+            L2: add dl,30h
+                mov ah,02h
+                int 21h
+                dec ch
+                jnz L1
+
+                mov ah,4ch
+                int 21h
+
+        main endp
+end main

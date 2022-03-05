@@ -1,0 +1,25 @@
+;Program 15:Program to count numbre of 1's in Register
+dosseg
+.model small
+.stack 100h
+.data
+a db 57h
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov ah,a
+mov ch,16
+back:rcr ah,1
+jnc l1
+inc bl
+l1:dec ch
+jnz back
+mov dl,bl
+add dl,30h
+mov ah,02h
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main 

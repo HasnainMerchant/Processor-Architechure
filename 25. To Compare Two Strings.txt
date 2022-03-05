@@ -1,0 +1,85 @@
+;Program 25:Program to Compare two strings
+dosseg
+.model small
+.stack 100h
+.data
+str1 db "First String : $"
+str2 db "Second String : $"
+instr1 db 20 dup("$")
+instr2 db 20 dup("$")
+newline db 10,13,"$"
+n db ?
+s db ?
+msg1 db "Both Strings Are Same $"
+msg2 DB "Both Strings Are Different $"
+.code
+START:mov ax,@data
+mov ds,ax
+lea si,instr1
+lea di,instr2
+
+;GET STRING
+mov ah,09h
+lea dx,str1
+int 21h
+
+mov ah,0Ah
+mov dx,si
+int 21h
+
+
+mov ah,09h
+lea dx,newline
+int 21h
+
+mov ah,09h
+lea dx,str2
+int 21h
+
+mov ah,0Ah
+mov dx,di
+int 21h
+
+
+mov ah,09h
+lea dx,newline
+int 21h
+
+;STRING COMPARISION
+mov bx,00
+
+mov bl,instr1+1
+mov bh,instr2+1
+
+cmp bl,bh
+jne L1
+
+add si,2
+add di,2
+
+L2:mov bl,byte ptr[si]
+cmp byte ptr[di],bl
+jne L1
+inc si
+inc di
+cmp byte ptr[di],"$"
+jne L2
+
+mov ah,09h
+lea dx,msg1
+int 21h
+
+jmp L5
+
+L1:mov ah,09h
+lea dx,msg2
+int 21h
+
+L5:mov ah,09h
+lea dx,newline
+int 21h
+
+mov ah,4ch
+int 21h
+
+end START

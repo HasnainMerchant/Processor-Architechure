@@ -1,0 +1,19 @@
+;Program 1:Program to display a character to the screen
+dosseg
+.model small
+.stack 100h
+.data
+a db 3
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov al,a
+mov dl,al
+add dl,30h
+mov ah,02h
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main

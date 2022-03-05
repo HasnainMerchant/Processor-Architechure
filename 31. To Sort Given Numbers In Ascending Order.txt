@@ -1,0 +1,32 @@
+;Program 31:Program to sort given numbers in ascending order
+dosseg 
+.model small
+.stack 100h
+.data
+arr1 db 99H,12H,56H,45H,36H
+
+.code
+START:mov ax,@data
+mov ds,ax
+ 
+mov ch,04h
+ 
+UP2: mov cl,04h
+lea si,arr1
+ 
+UP1: mov al,[si]
+mov bl,[si+1]
+cmp al,al
+jc down
+mov dl,[si+1]
+xchg [si],dl
+mov [si+1],dl
+ 
+DOWN: inc si
+dec cl
+jnz UP1
+dec CH
+jnz UP2
+ 
+int 3
+end START

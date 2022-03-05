@@ -1,0 +1,38 @@
+;Program 26:Program to Concatenate a string to another string
+dosseg
+.model small
+.stack 100h
+.data
+str1 db "build"
+str2 db "ing"
+slen1 equ($-str1)
+slen2 equ($-str2)
+str3 db 50 dup(0)
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov es,ax
+mov cx,slen1
+lea si,str1
+lea di,str3
+up:mov al,[si]
+mov [di],al
+inc si
+inc di
+loop up
+mov cx,slen2
+lea si,str2
+up2:mov al,[si]
+mov [di],al
+inc si
+inc di
+loop up2
+
+lea dx,str3
+mov ah,09h
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main

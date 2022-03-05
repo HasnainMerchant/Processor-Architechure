@@ -1,0 +1,30 @@
+;Program 27:Program to find the Occurrence of a character in a string input from the user
+dosseg 
+.model small
+.stack 100h
+.data
+str db 'message'
+len equ($-str)
+char db 's'
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov es,ax
+mov cx,len
+lea di,str
+mov al,char
+check:cmp al,[di]
+jnz l2
+inc bl
+l2:loop check
+inc bl
+mov dl,bl
+add dl,30h
+mov ah,02h
+int 21h
+mov ah,4ch
+int 21h
+main endp
+end main
+

@@ -1,0 +1,71 @@
+;Program 7:Program to Add of two 8-bit numbers at Run-Time
+dosseg
+.model small
+.stack 100h
+.data
+  num1 DB 10,13 , "Enter Number 1 : $"
+  num2 DB 10,13 , "Enter Number 2 : $"
+  num3 DB 10,13 , "Result Is : $"
+.code
+        main proc
+                mov ax,@data
+                mov ds,ax
+
+                lea dx,num1
+                mov ah,09h
+                int 21h
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                mov bl,al
+                rol bl,4
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                add bl,al
+
+                lea dx,num2
+                mov ah,09h
+                int 21h
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                mov dl,al
+                rol dl,4
+
+                mov ah,01h
+                int 21h
+                sub al,30h
+                add dl,al
+
+                add bl,dl
+                mov al,bl
+                daa
+
+                lea dx,num3
+                mov ah,09h
+                int 21h
+
+                mov ch,02h
+                mov cl,04h
+                mov bl,al
+
+              L1:rol bl,cl
+                mov dl,bl
+                and dl,0fh
+                cmp dl,09
+                jbe L2
+                add dl,07h
+               L2: add dl,30h
+                mov ah,02h
+                int 21h
+                dec ch
+                jnz L1
+
+                mov ah,4ch
+                int 21h
+           main endp
+           end main

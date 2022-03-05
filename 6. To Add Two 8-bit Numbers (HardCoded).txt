@@ -1,0 +1,42 @@
+;Program 6:Program to Add two 8-bit numbers(HardCoded)
+
+dosseg
+.model small
+.stack 100h
+.data
+      a db 49h
+      b db 35h
+.code
+        main proc
+                mov ax,@data
+                mov ds,ax
+
+                mov al,a
+                mov bl,b
+
+                add al,bl
+                daa
+
+                mov ch,02
+                mov cl,04
+
+                mov bl,al
+
+             L1:rol bl,cl
+                mov dl,bl
+                and dl,0fh
+                cmp dl,09
+                jbe L2
+                add dl,07h
+             L2:add dl,30h
+
+                mov ah,02h
+                int 21h
+
+                dec ch
+                jnz L1
+
+                mov ah,4ch
+                int 21h
+        main endp
+        end main

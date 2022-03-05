@@ -1,0 +1,32 @@
+;Program 18:Program to Copy one string to another string and display the copied string
+dosseg
+.model small
+.stack 100h
+.data
+str1 db "reverse"
+slen equ($-str1)
+str2 db 10 dup(0)
+.code
+main proc
+mov ax,@data
+mov ds,ax
+mov es,ax
+mov cx,slen
+lea si,str1
+lea di,str2
+up:mov al,[si]
+mov [di],al
+inc si
+inc di
+loop up
+mov cx,slen
+lea di,str2
+display:mov dl,[di]
+mov ah,02h
+int 21h
+inc di
+loop display
+mov ah,4ch
+int 21h
+main endp
+end main

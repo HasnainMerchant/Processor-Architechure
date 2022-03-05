@@ -1,0 +1,52 @@
+;Program 29:Program to find smallest/largest number in a given array
+dosseg
+.model small
+.stack 100h
+.data
+large db 10,13,"Largest Number Is : $"
+small db 10,13,"Smallest Number Is : $"
+arr1 db 10h,15h,7h,3h,6h
+len db 5
+.code
+main proc
+mov ax,@data
+mov ds,ax
+
+mov ch,len-2
+
+;Program To Find Smallest Number
+mov si,offset arr1
+rept:mov al,[si]
+inc si
+cmp al,[si]
+ja smal  ;Jump If Bl Is Greater
+mov dl,al
+smal: inc si
+dec cl
+jnz rept
+lea dx,small
+mov ah,09h
+int 21h
+mov ah,02h
+int 21h
+
+;Program To Find Largest Number
+lea si,offest arr1
+rept1:mov al,[si]
+inc si
+mov bl,[si]
+cmp al,bl ;Jump If Al Is Greater
+jl larg
+mov dl,al
+larg:inc si
+dec cl
+jnz rept1 
+lea dx,large
+mov ah,09h
+int 21h
+mov ah,02h
+int 21h
+mov ah,4ch
+int 21h 
+main endp
+end main

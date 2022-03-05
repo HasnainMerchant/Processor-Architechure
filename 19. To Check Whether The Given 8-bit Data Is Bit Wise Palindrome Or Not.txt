@@ -1,0 +1,41 @@
+;Program 19:Program to check whether the given 8-bit data is bit wise palindrome or not
+dosseg
+.model small
+.data
+str1 db "mom"
+slen equ ($-str1)
+str2 db 40 dup(0)
+msg1 db "Palindrome$"
+msg2 db " Not A Palindrome$"
+.code
+main proc
+start: mov ax, @data
+mov ds,ax
+mov es, ax
+mov cx, slen
+lea si, str1
+add si, slen-1
+lea di, str2
+up: mov al, [si]
+mov [di], al
+dec si
+inc di
+loop up
+lea si, str1
+lea di, str2
+mov cx, slen
+cld
+repe cmpsb
+jne down
+lea dx, msg1
+mov ah, 09h
+int 21h
+jmp exit
+down: lea dx, msg2
+mov ah, 09h
+int 21h
+exit:
+mov ah, 4ch
+int 21h
+main endp
+end main
